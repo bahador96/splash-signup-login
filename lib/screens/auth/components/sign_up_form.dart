@@ -20,63 +20,67 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: widget.formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const TextFieldName(text: 'Username'),
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'test',
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Form(
+        key: widget.formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TextFieldName(text: 'Username'),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'test',
+              ),
+              validator: RequiredValidator(errorText: "Username is required"),
+              onSaved: (username) => _username = username!,
             ),
-            validator: RequiredValidator(errorText: "Username is required"),
-            onSaved: (username) => _username = username!,
-          ),
-          const SizedBox(height: defaultPadding),
-          const TextFieldName(text: 'Email'),
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'test@gmail.com',
+            const SizedBox(height: defaultPadding),
+            const TextFieldName(text: 'Email'),
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                hintText: 'test@gmail.com',
+              ),
+              validator: EmailValidator(errorText: "Use a valid email"),
+              onSaved: (email) => _email = email!,
             ),
-            validator: EmailValidator(errorText: "Use a valid email"),
-            onSaved: (email) => _email = email!,
-          ),
-          const SizedBox(height: defaultPadding),
-          const TextFieldName(text: 'Phone'),
-          TextFormField(
-            keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(
-              hintText: '+989121111111',
+            const SizedBox(height: defaultPadding),
+            const TextFieldName(text: 'Phone'),
+            TextFormField(
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                hintText: '+989121111111',
+              ),
+              validator:
+                  RequiredValidator(errorText: "Phone number is required "),
+              onSaved: (phoneNumber) => _phonenumber = phoneNumber!,
             ),
-            validator:
-                RequiredValidator(errorText: "Phone number is required "),
-            onSaved: (phoneNumber) => _phonenumber = phoneNumber!,
-          ),
-          const SizedBox(height: defaultPadding),
-          const TextFieldName(text: 'Password'),
-          TextFormField(
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: '******',
+            const SizedBox(height: defaultPadding),
+            const TextFieldName(text: 'Password'),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: '******',
+              ),
+              validator: passwordValidator,
+              onSaved: (password) => _password = password!,
+              onChanged: (pass) => _password = pass,
             ),
-            validator: passwordValidator,
-            onSaved: (password) => _password = password!,
-            onChanged: (pass) => _password = pass,
-          ),
-          const SizedBox(height: defaultPadding),
-          const TextFieldName(text: 'Confirm password'),
-          TextFormField(
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: '******',
+            const SizedBox(height: defaultPadding),
+            const TextFieldName(text: 'Confirm password'),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: '******',
+              ),
+              validator: (pass) =>
+                  MatchValidator(errorText: "Password do not  match")
+                      .validateMatch(pass!, _password),
             ),
-            validator: (pass) =>
-                MatchValidator(errorText: "Password do not  match")
-                    .validateMatch(pass!, _password),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
